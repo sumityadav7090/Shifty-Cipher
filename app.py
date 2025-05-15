@@ -20,12 +20,8 @@ def encrypt():
     try:
         data = request.get_json()
         text = data.get('text', '')
-        shift = int(data.get('shift', 0))  # Make sure shift is an int
+        shift = int(data.get('shift', 0))
         cipher = shifty_cipher(text, shift)
         return jsonify({'cipher': cipher})
     except Exception as e:
         return jsonify({'error': str(e)}), 500
-
-# For local development only
-if __name__ == '__main__':
-    app.run(debug=True)
