@@ -17,11 +17,15 @@ def shifty_cipher(text, shift):
 
 @app.route('/encrypt', methods=['POST'])
 def encrypt():
-    data = request.json
-    text = data.get('text', '')
-    shift = data.get('shift', 0)
-    cipher = shifty_cipher(text, shift)
-    return jsonify({'cipher': cipher})
+    try:
+        data = request.get_json()
+        text = data.get('text', '')
+        shift = int(data.get('shift', 0))  # Make sure shift is an int
+        cipher = shifty_cipher(text, shift)
+        return jsonify({'cipher': cipher})
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
+# For local development only
 if __name__ == '__main__':
     app.run(debug=True)
