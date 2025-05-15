@@ -1,6 +1,7 @@
 {
   "version": 2,
-  "builds": [
+  "builds": [{ "src": "api/index.py", "use": "@vercel/python" }],
+  "routes": [{ "src": "/encrypt", "methods": ["POST"], "dest": "api/index.py" }]
     {
       "src": "app.py",
       "use": "@vercel/python"
